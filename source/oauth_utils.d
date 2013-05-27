@@ -109,6 +109,36 @@ public string[string] parseUrlForParams(string url) {
 }
 
 
+/**
+ * This is a simple implementation of a session handler.
+ * This should only be used for testing.
+ */
+class MemorySessionHandler : OAuthSessionHandler {
+	private string[int] session;
+	
+	public OAuthSessionHandler put(int key, string value) {
+		session[key] = value;
+		return this;
+	}
+	
+	public void commit() {
+		//PASS
+	}
+	
+	public string get(int key) {
+		
+		if(key in session)
+			return session[key];
+		return null;
+	}
+	
+	public void remove(int key) {
+		session.remove(key);
+	}
+	void print() {
+		writeln(session);
+	}
+}
 
 
 
@@ -122,32 +152,7 @@ public string[string] parseUrlForParams(string url) {
 unittest {
 	const string CLIENT_ID = "fff";
 
-	class MemorySessionHandler : OAuthSessionHandler {
-		private string[int] session;
 
-		public OAuthSessionHandler put(int key, string value) {
-			session[key] = value;
-			return this;
-		}
-
-		public void commit() {
-			//PASS
-		}
-
-		public string get(int key) {
-
-			if(key in session)
-				return session[key];
-			return null;
-		}
-
-		public void remove(int key) {
-			session.remove(key);
-		}
-		void print() {
-			writeln(session);
-		}
-	}
 
 	/***************************
 	OAuth provider

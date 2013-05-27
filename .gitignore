@@ -1,4 +1,5 @@
 bin/*
+obj/*
 *.dproj
 *.userprefs
 makefile
