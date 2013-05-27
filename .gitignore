@@ -1,0 +1,4 @@
+bin/*
+*.dproj
+*.userprefs
+makefile

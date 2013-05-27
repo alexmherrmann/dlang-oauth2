@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{3947E667-4C90-4C3A-BEB9-7148D6FE0D7C}") = "doauth2", "doauth2.dproj", "{578BE43C-5C77-44F1-8E8C-E696821C062D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Unittest|Any CPU = Unittest|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{578BE43C-5C77-44F1-8E8C-E696821C062D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578BE43C-5C77-44F1-8E8C-E696821C062D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578BE43C-5C77-44F1-8E8C-E696821C062D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578BE43C-5C77-44F1-8E8C-E696821C062D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578BE43C-5C77-44F1-8E8C-E696821C062D}.Unittest|Any CPU.ActiveCfg = Unittest|Any CPU
+		{578BE43C-5C77-44F1-8E8C-E696821C062D}.Unittest|Any CPU.Build.0 = Unittest|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = doauth2.dproj
+	EndGlobalSection
+EndGlobal
