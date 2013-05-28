@@ -1,8 +1,12 @@
 import std.stdio;
-import source.tests;
+import source.oauth;
 import source.oauth_utils;
 
+/**
+ * 
+ */
 void main()
 {
-	writeln("Edit source/app.d to start your project.");
+	writeln("This is a library. Compile this file with the -unittest flag" ~ 
+			"to run tests.");
 }

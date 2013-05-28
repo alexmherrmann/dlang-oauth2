@@ -6,6 +6,31 @@
 	"authors": [
 		"Your Name"
 	],
+	"targetName": "dlang-oauth2",
 	"dependencies": {
-	}
+	},
+	"libs": [
+		"phobos2",
+		"curl"
+	],
+	"configurations": [
+		{
+			"name": "normal",
+			"targetType": "sourceLibrary",
+			"versions": ["Standalone"]
+		},
+		{
+			"name": "test",
+			"targetType": "executable",
+			"versions": ["Testing", "Standalone"]
+		},
+		{
+			"name": "vibe",
+			"targetType": "sourceLibrary",
+			"versions": ["VibeExists"],
+			"dependencies": {
+				"vibe-d":"~master"
+			}
+		},
+	]
 }

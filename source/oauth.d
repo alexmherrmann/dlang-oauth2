@@ -1,14 +1,14 @@
 module source.oauth;
 
 import std.stdio;
+import std.net.curl;
 import source.oauth_utils;
-import source.tests;
 import std.digest.md;
 import std.random;
 import std.uuid;
 import std.array;
 import std.conv : to;
-import std.net.curl;
+
 
 /**
  * OAuth2 implementation for D.
@@ -32,10 +32,10 @@ class OAuth
 	 */
 	this(ref OAuthProvider p)
 	in {
-		assert(p.auth_endpoint != null);
-		assert(p.client_id != null);
+		assert(p.auth_endpoint !is null);
+		assert(p.client_id !is null);
 		assert(p.client_secret != null);
-		assert(p.token_endpoint != null);
+		assert(p.token_endpoint !is null);
 		assert(p.redirect_uri != null);
 
 	} body {
@@ -70,7 +70,7 @@ class OAuth
 		         "&redirect_url=",
 		         provider.redirect_uri,
 		         "&grant_type=authorization_code"
-		         ]);
+		         ],"");
 	}
 
 	/**
@@ -111,9 +111,14 @@ class OAuth
 			throw new Exception("Illegal token");
 
 		string post_data = generateAccessTokenRequestData(code);
+		writeln(post_data);
 
-		string response = "d";//cast(string) post(provider.token_endpoint, post_data);
-		debug writeln(response);
+		try {
+			string response = cast(string) post(provider.token_endpoint, post_data);
+			writeln(response);
+			} catch (CurlException ex) {
+				writeln(ex.msg);
+			}
 
 
 
@@ -141,10 +146,9 @@ unittest {
 
 	/** The code must be entered manually */
 	writeln("Enter the url redirected to");
-	char[] buf;
-	stdin.readln(buf);
+	string response_url = stdin.readln();
 
-	writeln(buf);
+	auth.handleAuthenticationResponse(response_url);
 	
 }
 	
