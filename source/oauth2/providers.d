@@ -1,7 +1,7 @@
-module source.providers;
+module oauth2.providers;
 
-import source.oauth;
-import source.oauth_utils;
+import oauth2.oauth;
+import oauth2.oauth_utils;
 
 struct ProviderPresets {
 

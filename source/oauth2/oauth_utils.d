@@ -1,8 +1,10 @@
-module source.oauth_utils;
+module oauth2.oauth_utils;
 
 import std.stdio;
 import std.array;
 import std.string;
+import std.json;
+import std.exception;
 
 /**
  * A simple struct to hold necessary data about
@@ -89,6 +91,29 @@ interface OAuthSessionHandler {
 }
 
 /**
+ * Represents the standard (successful) response from a token
+ * enpoint. Currently, id_token is not implemented as no libraries
+ * to decrypt JWE exist for D.
+ */
+struct OAuthTokenRequestResponse {
+
+	string access_token;
+	ulong expires_in;
+	string id_token;
+
+
+	this(string response) {
+		JSONValue root = parseJSON(response);
+		enforce(root.type == JSON_TYPE.OBJECT, "Unexpected response");
+
+		access_token = root["access_token"].str;
+		expires_in = root["expires_in"].uinteger;
+
+	}
+}
+
+
+/**
  * Parse an url and return the parameters as a map.
  */
 public string[string] parseUrlForParams(string url) {
@@ -107,6 +132,7 @@ public string[string] parseUrlForParams(string url) {
 
 	return params;
 }
+
 
 
 /**

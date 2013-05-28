@@ -1,6 +1,6 @@
 import std.stdio;
-import source.oauth;
-import source.oauth_utils;
+import oauth2.oauth;
+import oauth2.oauth_utils;
 
 /**
  * 
