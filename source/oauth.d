@@ -6,10 +6,9 @@ import source.tests;
 import std.digest.md;
 import std.random;
 import std.uuid;
-import std.net.curl;
 import std.array;
 import std.conv : to;
-
+import std.net.curl;
 
 /**
  * OAuth2 implementation for D.
@@ -51,7 +50,7 @@ class OAuth
 	 */
 	private string createStateToken() {
 		auto uuid = randomUUID();
-		string token = toHexString(md5Of(uuid.data));
+		string token = uuid.toString();
 
 		provider.token_state = token;
 		return token;
@@ -82,10 +81,15 @@ class OAuth
 	public string getAuthenticationRequestURL(OAuthSessionHandler handler) {
 		string url = "%s?client_id=%s&response_type=code&scope=openid%20email&redirect_uri=%S&state=%s";
 		
-		url = url.format(
-			provider.auth_endpoint,
-			provider.client_id,
-			provider.redirect_uri);
+		url = join([
+		            provider.auth_endpoint,
+		            "?client_id=",
+		            provider.client_id,
+		            "&response_type=code&scope=openid%20email&redirect_uri=",
+		            provider.redirect_uri,
+		            "&state=",
+		            provider.token_state]);
+
 
 		provider.persist(handler);
 
@@ -108,7 +112,7 @@ class OAuth
 
 		string post_data = generateAccessTokenRequestData(code);
 
-		string response = cast(string) post(provider.token_endpoint, post_data);
+		string response = "d";//cast(string) post(provider.token_endpoint, post_data);
 		debug writeln(response);
 
 
@@ -121,24 +125,26 @@ class OAuth
 
 
 unittest {
-	/*
+
 	import source.providers;
 	
 	const CLIENT_ID = "129710706774.apps.googleusercontent.com";
 	const CLIENT_SECRET = "FUm-wHtdPg8Nl6FbLYlzkAS9";
 	const REDIRECT = "http://localhost/oauth";
 	
-	MemorySessionHandler handler = new MemorySessionHandler;
-	
 	OAuthProvider google = ProviderPresets.googleProvider(CLIENT_ID, CLIENT_SECRET, REDIRECT);
-	
-	OAuth o = new OAuth(google);
-	
-	string url = o.getAuthenticationRequestURL(handler);
+	OAuth auth = new OAuth(google);
+
+	MemorySessionHandler handler = new MemorySessionHandler;
+	string url = auth.getAuthenticationRequestURL(handler);
 	writeln(url);
-	*/
-	writeln("jjf");
-	
+
+	/** The code must be entered manually */
+	writeln("Enter the url redirected to");
+	char[] buf;
+	stdin.readln(buf);
+
+	writeln(buf);
 	
 }
 	
